@@ -1,6 +1,6 @@
 # SCARPA RAG Agent
 
-**Learning Project | Retrieval-Augmented Generation | n8n · Pinecone · OpenAI**
+**RAG Systems Case Study | Retrieval · Guardrails · Evaluation | n8n · Pinecone · OpenAI**
 
 A natural-language agent that answers questions about SCARPA's footwear catalog by retrieving from a real vector database instead of guessing from a model's memory. It was first prototyped in ChatGPT's Agent Builder, then **rebuilt in n8n** against a real Pinecone index and a real evaluation harness — because the goal was never a demo. It was to understand *why* each part of a RAG system has to be there by building it, breaking it, measuring it, and fixing what the measurements exposed.
 
@@ -58,6 +58,10 @@ flowchart LR
     J -->|pass| D([Deliver])
     J -->|fail| W([Withhold + safe message])
 ```
+
+*Conceptual flow above. Below — the actual n8n graph: the classifier fans out into **seven parallel category branches** (namespace sharding, made literal), each running the same retrieve → answer → judge → gate sequence, all converging on the evaluation scorer.*
+
+![The SCARPA RAG pipeline in n8n](assets/n8n_canvas.png)
 
 | Step | Component | What it does |
 |------|-----------|--------------|
@@ -157,9 +161,9 @@ The architecture was the starting point. The interesting part was working throug
 
 ## 🌱 From Prototype to Rebuild
 
-The first version lived in **ChatGPT's Agent Builder** — a fast way to model the workflow and confirm the concept. But Agent Builder is a prototyping environment, not a deployment platform.
+The first version lived in **ChatGPT's Agent Builder** — a fast way to model the workflow and confirm the concept, but a prototyping environment, not a deployment platform. That prototype keeps its own home: **[`scarpa-rag-agent`](https://github.com/chasebarrett/scarpa-rag-agent)**.
 
-Rebuilding in **n8n** was the deeper exercise: a real classifier node, a real vector store with namespace sharding, a real faithfulness-judge cluster, and an evaluation harness wired into the same pipeline. The concepts — RAG, classification routing, guardrails, evaluation — are stack-agnostic; doing them against real infrastructure is where the understanding actually compounded.
+**This repository is the rebuild** — a deliberately different tier of work. Moving to **n8n** meant a real classifier node, a real vector store with namespace sharding, a real faithfulness-judge cluster, and an evaluation harness wired into the same pipeline. The concepts — RAG, classification routing, guardrails, evaluation — are stack-agnostic; doing them against real infrastructure is where the understanding compounded, and where every number in the [Outcomes](#-outcomes) table came from.
 
 ---
 
@@ -178,7 +182,7 @@ Rebuilding in **n8n** was the deeper exercise: a real classifier node, a real ve
 ## 📁 Repository
 
 ```
-scarpa-rag-agent/
+scarpa-rag-n8n/
 ├── README.md                              # You are here
 ├── LICENSE
 ├── data/                                  # Markdown product catalogs (one per category)
@@ -191,14 +195,15 @@ scarpa-rag-agent/
 │   ├── evaluation.md                      # Harness design, the metrics, how to run it
 │   └── lessons-learned.md                 # The sibling-variant fix and the conceptual takeaways
 └── assets/
-    └── scarpa_agent_architecture.svg      # Conceptual flow diagram
+    ├── scarpa_agent_architecture.svg      # Conceptual flow diagram
+    └── n8n_canvas.png                      # Screenshot of the real n8n graph
 ```
 
 ---
 
 ## 📄 Disclaimer
 
-This is a personal learning project built to explore RAG and agent-workflow concepts. It is not affiliated with, endorsed by, or sponsored by SCARPA.
+This is a personal portfolio project built to explore RAG and agent-workflow concepts. It is not affiliated with, endorsed by, or sponsored by SCARPA.
 
 Product names, descriptions, and specifications under `data/` are the intellectual property of SCARPA S.p.A. and are included here solely for educational and portfolio purposes. The product data is not licensed for redistribution or commercial use.
 
