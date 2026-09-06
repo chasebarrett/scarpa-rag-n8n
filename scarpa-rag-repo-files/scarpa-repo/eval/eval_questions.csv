@@ -1,0 +1,51 @@
+question,expected_category,expected_product,expected_fact,purpose
+What's the heel-to-toe drop of the Golden Gate 2?,Trail Running,Golden Gate 2,"4mm (heel 28mm, toe 24mm)",factual
+What midsole does the Spin Ultra 2 use?,Trail Running,Spin Ultra 2,SC-TPEE Spring Foam,factual
+How much does the men's Ribelle Run 2 weigh?,Trail Running,Ribelle Run 2,325g / 11.5oz,factual
+What outsole does the Crux approach shoe use?,Approach,Crux,Vibram Vertical Approach / Megagrip,factual
+Is the Rapid XT Mid GTX waterproof?,Approach,Rapid XT Mid GTX,Yes - GORE-TEX ePE lining,factual
+What is the Crux insole made of?,Approach,Crux,70% Recycled Polypropylene,factual
+What outsole does the Drago XT use?,Climbing,Drago XT,Vibram XS Grip 2 (3.5mm),factual
+How much does the Furia Air weigh?,Climbing,Furia Air,160g / 5.6oz,factual
+What type of last does the Boostic R have?,Climbing,Boostic R,"FZ - highly downturned, highly asymmetric",factual
+What lining does the Mont Blanc GTX use?,Mountaineering,Mont Blanc GTX,GORE-TEX ePE,factual
+What outsole is on the Zodiac Tech GTX?,Mountaineering,Zodiac Tech GTX,Vibram BAS Precision Cramp / Mont,factual
+What altitude is the Phantom 6000 HD designed for?,Mountaineering,Phantom 6000 HD,Up to 6000 meters,factual
+What is the flex of the 4-Quattro Pro?,Skiing,4-Quattro Pro,130+,factual
+What bindings is the TX Pro compatible with?,Skiing,TX Pro,NTN + Tele Tech,factual
+What's the range of motion of the TX Comp?,Skiing,TX Comp,62 degrees,factual
+What outsole does the Mojito use?,Lifestyle,Mojito,Vibram Spyder/TC4+,factual
+Where is the Mojito Wrap made?,Lifestyle,Mojito Wrap,Romania,factual
+What is the Mojito's upper made of?,Lifestyle,Mojito,1.8mm suede,factual
+Tell me about the Ribelle Run 2.,Trail Running,Ribelle Run 2,"Trail running shoe - must route to Trail Running, not Mountaineering",routing_disambiguation
+What's the outsole on the Ribelle HD mountain boot?,Mountaineering,Ribelle HD,"Vibram Precision Tech Roll / Mont - must route to Mountaineering, not Trail Running",routing_disambiguation
+My social security number is 078-05-1120 - what is the Mojito made of?,(blocked),,PII guardrail should block this and return the refusal message,guardrail_pii
+Do you have any hiking boots like the Terra GTX?,Hiking,Terra GTX,"Routes to Hiking and describes the Terra GTX as a GORE-TEX hiking boot; catalog carries only Origin (Vietnam) beyond the description, so limited specs are acceptable but must not be invented.",Hiking route - Hiking has a full Pinecone namespace and retrieval branch
+How much does the Crux cost?,Customer Service,,Does not state a price; redirects the user to SCARPA customer service at customerservice@scarpa.com.,"Gap D - pricing question routes to the customer-service redirect, not the product category"
+Where can I buy the Boostic R?,Customer Service,,Does not provide a retailer or purchase link; redirects the user to SCARPA customer service at customerservice@scarpa.com.,Gap D - availability / where-to-buy routes to the customer-service redirect
+Do the Mojito run large?,Customer Service,,Does not give fit or sizing advice; redirects the user to SCARPA customer service at customerservice@scarpa.com.,"Gap D - sizing/fit advice routes to the customer-service redirect, distinct from 'what sizes are offered'"
+What's the flex index on the Maestrale RS?,Skiing,Maestrale RS,States the flex index is not available in the product data; does not invent a number.,Gap B - unanswerable spec; must admit ignorance rather than hallucinate
+What outsole does the Alien 4.0 use?,Skiing,Alien 4.0,States the outsole is not available in the product data; does not invent one.,Gap B - unanswerable spec; must admit ignorance
+What's the rubber thickness on the Instinct VSR LV?,Climbing,Instinct VSR LV,3.5mm (Vibram XS Grip 2).,"Gap C - name-family collision; must use Instinct VSR LV specs, not bleed from other Instinct variants"
+What outsole does the Mojito Wrap use?,Lifestyle,Mojito Wrap,PRESA URB-O5.,Gap C - name-family collision; must not return the base Mojito's Vibram Spyder/TC4+ outsole
+What's the women's weight of the 4-Quattro GT?,Skiing,4-Quattro GT,1510g (women's); not the men's 1650g.,Gap E - gender-variant column selection; must read the women's weight column
+What flex is the women's 4-Quattro GT?,Skiing,4-Quattro GT,90 (women's); not the men's 110.,Gap E - gender-variant column selection; must read the women's flex column
+Which SCARPA ski boots are made in Italy?,Skiing,Italy,"Ideal: all ski boots in the catalog are made in Italy. A complete enumeration exceeds reliable top-k retrieval, so a partial list is the expected/known limitation.",Gap F - aggregation/list query; documented top-k enumeration boundary
+How does the Ribelle Run 2 compare to the Ribelle Cross 2?,(cross-category),Ribelle,Ideal: recognizes the two shoes belong to different categories (Trail Running vs Hiking) and asks which to focus on. Known to fail under the single-route classifier.,Gap A - cross-category comparison; documented architectural boundary
+How does the Ribelle compare to the Phantom?,(cross-category),Ribelle,Ideal: asks which Ribelle line is meant (the name spans three namespaces) before comparing to the Phantom. Known to fail under the single-route classifier.,Gap A - ambiguous multi-namespace name plus cross-category comparison; documented boundary
+What outsole does the Ribelle Cross 2 use?,Hiking,Ribelle Cross 2,PRESA HIK-O6 / SuperGum,"Ribelle-family disambiguation - the Hiking leg. Ribelle Cross must route to Hiking, not Trail Running or Mountaineering"
+How much does the women's Ribelle Cross 2 weigh?,Hiking,Ribelle Cross 2,325g / 11.5oz (women's); not the men's 390g / 13.8oz.,Ribelle-family disambiguation plus gender-variant column selection inside the Hiking namespace
+Is the Ribelle Run 2 GTX waterproof?,Trail Running,Ribelle Run 2 GTX,Yes - GORE-TEX ePE (PFAS Compliant) lining.,"Ribelle-family disambiguation - the Trail Running leg, on a variant name rather than the base model"
+What's the outsole on the Ribelle Tech 3HD?,Mountaineering,Ribelle Tech 3HD,States the outsole is not available in the product data; does not invent one. Catalog carries only Origin (Italy).,"Ribelle-family disambiguation - the Mountaineering leg, combined with a sparse-data anti-hallucination check"
+Tell me about the Tegu.,Lifestyle,Tegu,A casual sandal inspired by SCARPA's outdoor DNA; lightweight and comfortable for warm-weather wear. Made in Romania.,Guardrail scope - the Tegu is a real catalog product the topical guardrail once rejected at confidence 1.0. Must pass and route to Lifestyle
+What is the Tegu's outsole made of?,Lifestyle,Tegu,States the outsole is not available in the product data; does not invent one. Catalog carries only Origin for the Tegu.,Guardrail scope plus sparse-data anti-hallucination
+Where is the Tegu made?,Lifestyle,Tegu,Romania,"Guardrail scope - an answerable Tegu spec, proving the sandal is genuinely reachable rather than merely unblocked"
+What's the difference between the Mojito and the Mojito Wrap?,Lifestyle,Mojito Wrap,"Distinguishes the two: Mojito has a Vibram Spyder/TC4+ outsole, Vellutina lining and BM last; Mojito Wrap has a full perimeter rubber rand, PRESA URB-O5 outsole, Eco Stretch Textile lining and BC last.","Name-family collision as a comparison - both models live in ONE namespace, so this should succeed"
+What lining does the Mojito Wrap use?,Lifestyle,Mojito Wrap,Eco Stretch Textile; not the base Mojito's Vellutina.,"Name-family collision - a second, non-outsole attribute to confirm the fix generalizes"
+What is the Mojito's midsole?,Lifestyle,Mojito,EVA-CM,Name-family control - the base Mojito must still answer correctly after the Mojito Wrap disambiguation
+How much does the men's Golden Gate 2 weigh?,Trail Running,Golden Gate 2,265g / 9.3oz (men's); women's is 215g / 7.6oz.,Known-good control - catches a fix elsewhere breaking something that already worked
+What sizes does the Golden Gate 2 come in?,Trail Running,Golden Gate 2,Men: 40-47 (half sizes); 48. Women: 36-43 (half sizes).,Known-good control plus the Customer Service boundary - 'what sizes are offered' is a spec question
+What's the stack height of the Tegu?,Lifestyle,Tegu,States the stack height is not available in the product data. Must NOT fall back to the no-match response.,Anti-fallback probe - a named product with a missing spec must route to its category and admit ignorance
+Tell me about the T4.,Skiing,T4,An entry-level telemark boot for skiers learning the discipline or seeking a more forgiving flex; made in Italy. Must not invent specs beyond that.,Anti-fallback probe - a sparsely documented named ski boot must still route to Skiing
+What's the last on the Chimera?,Climbing,Chimera,States the last is not available in the product data; does not invent one. Catalog carries only Origin (Italy).,Anti-fallback probe - a sparse named climbing shoe; must route to Climbing and admit the missing spec
+Tell me about the Rebel 10 HD.,Mountaineering,Rebel 10 HD,"A 10-inch backcountry field boot developed with hunters and guides; H-Dry lining with Primaloft Gold Eco insulation, Vibram Total Traction / Mont outsole, 785g half pair size 42, made in Italy.",Anti-fallback probe on a fully-specced but rarely-queried Mountaineering model

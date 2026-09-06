@@ -1,0 +1,30 @@
+# Secrets & credentials — never commit
+.env
+.env.*
+*.pem
+*.key
+credentials.json
+secrets.json
+**/credentials/
+
+# n8n exports may embed credential IDs / instance URLs — keep them out
+*.n8n.json
+workflow-export*.json
+
+# Local notes & scratch
+notes/
+scratch/
+*.local.md
+TODO.local
+
+# OS / editor cruft
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*~
+
+# Node (if any tooling is added later)
+node_modules/
+npm-debug.log*
