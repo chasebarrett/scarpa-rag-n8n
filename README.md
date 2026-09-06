@@ -4,10 +4,13 @@
 
 A natural-language agent that answers questions about SCARPA's footwear catalog by retrieving from a real vector database instead of guessing from a model's memory. It was first prototyped in ChatGPT's Agent Builder, then **rebuilt in n8n** against a real Pinecone index and a real evaluation harness — because the goal was never a demo. It was to understand *why* each part of a RAG system has to be there by building it, breaking it, measuring it, and fixing what the measurements exposed.
 
+> 🟢 **Try it live:** **[Ask the SCARPA RAG agent →](https://cbarrett1887.app.n8n.cloud/webhook/6de86e33-cec3-4484-9ada-68a4d4a91392/chat)** — running as of **September 6, 2026**. Personal, cost-metered instance; may be rate-limited or taken offline without notice. The full workflow is committed in [`workflows/`](workflows/) either way.
+
 ---
 
 ## Table of Contents
 
+- [🟢 Try It Live](#-try-it-live)
 - [🎯 Outcomes](#-outcomes)
 - [🧱 What I Built](#-what-i-built)
 - [🔀 How It Routes](#-how-it-routes)
@@ -20,6 +23,23 @@ A natural-language agent that answers questions about SCARPA's footwear catalog 
 - [🔧 Stack](#-stack)
 - [📁 Repository](#-repository)
 - [📄 Disclaimer](#-disclaimer)
+
+---
+
+## 🟢 Try It Live
+
+A public chat instance is running — ask it real questions and watch it route, retrieve, and refuse to guess:
+
+**→ [Open the SCARPA RAG chat](https://cbarrett1887.app.n8n.cloud/webhook/6de86e33-cec3-4484-9ada-68a4d4a91392/chat)**
+
+Try:
+- *"What's the heel-to-toe drop of the Golden Gate 2?"* — a straight spec lookup
+- *"How much does the women's Ribelle Cross 2 weigh?"* — the sibling-variant case this project was built to get right
+- *"How much does the Crux cost?"* — watch it decline and redirect instead of inventing a price
+
+> ⚠️ **Demo status — live as of September 6, 2026.** This runs on a personal, cost-metered n8n + OpenAI + Pinecone stack, so it may be rate-limited or taken offline without notice. If the link is unresponsive, the [walkthrough docs](docs/) and the committed [workflow](workflows/scarpa_pipeline.json) show exactly what it does.
+
+Prefer to run your own copy? The complete workflow is committed at [`workflows/scarpa_pipeline.json`](workflows/scarpa_pipeline.json) — import it into any n8n instance ([how →](workflows/README.md)).
 
 ---
 
@@ -190,6 +210,9 @@ scarpa-rag-n8n/
 ├── data/                                  # Markdown product catalogs (one per category)
 ├── eval/
 │   └── eval_questions.csv                 # The 50-question evaluation dataset
+├── workflows/
+│   ├── scarpa_pipeline.json               # The exported n8n workflow (import-ready, no secrets)
+│   └── README.md                          # How to import it; credentials to supply
 ├── docs/
 │   ├── glossary.md                        # Every term in this repo, in plain language
 │   ├── architecture.md                    # The pipeline in detail; sharding rationale
