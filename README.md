@@ -27,6 +27,8 @@ A natural-language agent that answers questions about SCARPA's footwear catalog 
 
 Every number below comes from an **evaluation harness built into the workflow** — 50 curated questions run through the live pipeline twice (100 executions), scored automatically. Not a spot check.
 
+> 🔤 **New to any of these terms?** The [plain-language glossary](docs/glossary.md) explains every metric and concept in this repo in human terms — no AI background needed.
+
 | Metric | Baseline | After remediation | What it means |
 |--------|----------|-------------------|---------------|
 | **Routing accuracy** | 93.8% | **~97%** | The right question reaches the right product category |
@@ -189,6 +191,7 @@ scarpa-rag-n8n/
 ├── eval/
 │   └── eval_questions.csv                 # The 50-question evaluation dataset
 ├── docs/
+│   ├── glossary.md                        # Every term in this repo, in plain language
 │   ├── architecture.md                    # The pipeline in detail; sharding rationale
 │   ├── routing.md                         # Classifier design, single-label, the size-vs-fit split
 │   ├── guardrails.md                      # Input checks; the faithfulness judge and its calibration
