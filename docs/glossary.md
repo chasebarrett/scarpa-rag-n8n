@@ -65,6 +65,10 @@ A safety check. This project has two: an **input guardrail** (screens the incomi
 **Faithfulness judge**
 The output guardrail specifically — a second AI whose only job is to read the drafted answer against the source cards and rule **PASS** (grounded, send it) or **FAIL** (something's invented, hold it back). → *The fact-checker at the exit.*
 
+
+**Size conversion (US ↔ EU / Mondo)**
+SCARPA lists footwear in EU sizes (ski boots in Mondopoint). A US shoe size has to be *converted* to order the right pair. The agent answers this from an official size-conversion chart stored as a record in each product namespace — not from the model's memory. → *A laminated conversion card kept on every shelf of the stockroom.*
+
 **Withhold**
 What happens on a FAIL: instead of risking a wrong answer, the agent politely declines ("I can't verify that from the catalog"). A withheld answer is *safe*; the goal is to withhold only when truly necessary. → *The clerk saying "let me not guess" instead of bluffing.*
 

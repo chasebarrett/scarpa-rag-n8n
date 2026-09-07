@@ -4,7 +4,7 @@
 
 A natural-language agent that answers questions about SCARPA's footwear catalog by retrieving from a real vector database instead of guessing from a model's memory. It was first prototyped in ChatGPT's Agent Builder, then **rebuilt in n8n** against a real Pinecone index and a real evaluation harness — because the goal was never a demo. It was to understand *why* each part of a RAG system has to be there by building it, breaking it, measuring it, and fixing what the measurements exposed.
 
-> 🟢 **Try it live:** **[Ask the SCARPA RAG agent →](https://cbarrett1887.app.n8n.cloud/webhook/6de86e33-cec3-4484-9ada-68a4d4a91392/chat)** — running as of **September 6, 2026**. Personal, cost-metered instance; may be rate-limited or taken offline without notice. The full workflow is committed in [`workflows/`](workflows/) either way.
+> 🟢 **Try it live:** **[Ask the SCARPA RAG agent →](https://cbarrett1887.app.n8n.cloud/webhook/6de86e33-cec3-4484-9ada-68a4d4a91392/chat)** — running as of **September 7, 2026**. Personal, cost-metered instance; may be rate-limited or taken offline without notice. The full workflow is committed in [`workflows/`](workflows/) either way.
 
 ---
 
@@ -35,9 +35,10 @@ A public chat instance is running — ask it real questions and watch it route, 
 Try:
 - *"What's the heel-to-toe drop of the Golden Gate 2?"* — a straight spec lookup
 - *"How much does the women's Ribelle Cross 2 weigh?"* — the sibling-variant case this project was built to get right
+- *"What size climbing shoe should I pick if I'm a US women's 9?"* — a size-conversion lookup, grounded in SCARPA's official chart
 - *"How much does the Crux cost?"* — watch it decline and redirect instead of inventing a price
 
-> ⚠️ **Demo status — live as of September 6, 2026.** This runs on a personal, cost-metered n8n + OpenAI + Pinecone stack, so it may be rate-limited or taken offline without notice. If the link is unresponsive, the [walkthrough docs](docs/) and the committed [workflow](workflows/scarpa_pipeline.json) show exactly what it does.
+> ⚠️ **Demo status — live as of September 7, 2026.** This runs on a personal, cost-metered n8n + OpenAI + Pinecone stack, so it may be rate-limited or taken offline without notice. If the link is unresponsive, the [walkthrough docs](docs/) and the committed [workflow](workflows/scarpa_pipeline.json) show exactly what it does.
 
 Prefer to run your own copy? The complete workflow is committed at [`workflows/scarpa_pipeline.json`](workflows/scarpa_pipeline.json) — import it into any n8n instance ([how →](workflows/README.md)).
 
@@ -107,7 +108,13 @@ Two of the eight branches never touch the vector store:
 - **Customer Service redirect** — price, availability, where-to-buy, orders, returns, warranty, or fit *advice* are legitimate but unanswerable from a spec catalog. They route to a static redirect, bypassing retrieval and the judge, because a fixed message is grounded by construction.
 - **Fallback** — anything the classifier can't confidently place returns a short "I can help with these categories — could you rephrase?" reply.
 
-A subtle distinction lives here: **"what sizes does the Crux come in?" is a spec question** (in the catalog → Approach), while **"do the Crux run large?" is fit advice** (not in the catalog → Customer Service). The classifier prompt encodes that split explicitly. → [`docs/routing.md`](docs/routing.md)
+A subtle distinction lives here — a **three-way split** the classifier prompt encodes explicitly:
+
+- **"What sizes does the Crux come in?"** → a spec (the sizes offered are in the catalog → Approach).
+- **"What size should I pick if I'm a US women's 9?"** → a **size conversion**, answered from SCARPA's official US↔EU / US↔Mondo chart embedded in each namespace (→ the named product's category).
+- **"Do the Crux run large?"** → subjective **fit advice**, not in any catalog (→ Customer Service).
+
+The middle case was a later fix worth reading: size conversion started life as a Customer Service dead-end, and rerouting it cleanly meant *removing* size wording from that category rather than adding more — the [attractor trap documented in lessons-learned](docs/lessons-learned.md). → [`docs/routing.md`](docs/routing.md)
 
 ---
 
@@ -163,7 +170,7 @@ A structured audit mapped where the design holds and where it has edges. Some ga
 | A | Cross-category comparison ("Ribelle Run vs Ribelle Cross") | **Documented boundary** — a single-route classifier can't retrieve from two namespaces; degrades to "which line did you mean?" |
 | B | Sparse-data / unanswerable specs (e.g. Maestrale RS flex) | **Fixed** — admits the spec isn't available instead of inventing one |
 | C | Name-family collisions (Mojito vs Mojito Wrap; Ribelle Cross siblings) | **Fixed** — disambiguates within a namespace (see the worked fix above) |
-| D | Non-catalog questions (price, stock, fit advice) | **Fixed** — dedicated customer-service redirect |
+| D | Non-catalog questions (price, stock, fit advice) | **Fixed** — dedicated customer-service redirect; size *conversion* (US↔EU/Mondo) is now answered in-catalog from an official chart, and only subjective fit advice redirects |
 | E | Gender-variant columns (men's vs women's specs) | **Fixed** — selects the correct column |
 | F | Aggregation / list queries ("which boots are GORE-TEX?") | **Documented boundary** — exhaustive enumeration exceeds reliable top-k retrieval |
 

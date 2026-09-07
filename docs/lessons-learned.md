@@ -90,3 +90,28 @@ Behaviors that only showed up once the system ran end-to-end — none visible fr
 - **Guardrails at both ends — and their ordering matters** — input screens what comes in, output verifies the answer didn't drift, and where you place the screen relative to the router changes what legitimately gets through.
 - **Two axes govern most failures** — *availability* (does the answer exist in the retrieved context?) and *query type* (how deterministically does the question map to an answer?). Almost every failure mode lives at a specific corner of that grid.
 - **Evaluation is the product** — the harness is what turned a pile of prompts into a system I could actually improve. It's the difference between "I think it's better" and "withhold rate 6.5% → 3.3%, and here's the run."
+
+---
+
+## Lesson: adding a capability is a *routing* change, not just a *data* change
+
+**Symptom.** A real user asked *"What size climbing shoe should I pick if I am a size 9 women's?"* and the agent declined. The instinct was "add the data." The data was only half the fix.
+
+**Two bugs, stacked.**
+1. **No grounded source.** The catalog stored EU/Mondo sizes only — no US↔EU/Mondo conversion. The faithfulness judge correctly *withheld* rather than invent one. Fix: add SCARPA's official size-conversion chart as one `##` record per category namespace (EU chart for footwear, Mondo for ski). Now there is a legitimate source; the guardrail never had to be loosened.
+2. **Wrong route (the real blocker).** Even with the data in place, the classifier still sent the question to **Customer Service** — a static redirect with no retrieval — because the CS description explicitly claimed *"SIZING/FIT ADVICE ('what size should I get')."* The chart was never reached.
+
+**The trap I walked into on the first attempt.** I "fixed" the CS description by adding *"NOT for size conversion…"* — a negation. Routing didn't change. This is the exact **attractor bug** documented earlier in this project: *mentioning* a keyword in a category description makes that category **more** magnetic for it, even when the mention is a negation. Category descriptions outweigh the system prompt.
+
+**The fix that worked.** Strip *every* size token from Customer Service (leave only subjective fit — "runs large/small/narrow/wide"), and give **each product category** positive ownership of size conversion. Category-named size questions now route to the product branch that carries the chart; subjective fit stays Customer Service.
+
+**Verified, with the regression discipline the eval exists for:**
+
+| Probe | Route | Result |
+|-------|-------|--------|
+| "…size climbing shoe … women's 9?" | Climbing | EU 41 — Judge PASS |
+| "…size ski boot … US men's 10?" | Skiing | Mondo 28 — Judge PASS |
+| "Do the Drago run large or small?" | Customer Service | correctly *not* rerouted |
+| "How much does the Boostic weigh?" | Climbing | 245g — no regression |
+
+**Takeaway.** Shipping a new capability in a routed RAG system means updating *three* layers in lockstep — the **source** (so an answer can be grounded), the **router** (so the question reaches it), and the **regression check** (so the reroute doesn't poach neighbors). Miss any one and the feature silently fails.
