@@ -261,3 +261,37 @@ An entry-level telemark boot ideal for skiers learning the discipline or seeking
 | Spec | Details |
 |------|---------|
 | Origin | Italy |
+
+## Sizing & Fit — US to Mondopoint Size Conversion
+SCARPA ski boots are sized in **Mondopoint (Mondo)**, the sole length in centimeters. Use this official SCARPA chart to convert a US shoe size to the Mondo size to order. US Women's sizes run one full size larger than US Men's (US Women's = US Men's + 1). Non-ski SCARPA footwear uses EU sizing instead.
+
+Keywords: what size, ski boot size, US women's size, US men's size, Mondo size, Mondopoint, convert, conversion, sizing, fit, size chart.
+
+| Mondo | US Men | US Women |
+|-------|--------|----------|
+| 21.5 | 3.5 | 4.5 |
+| 22 | 4 | 5 |
+| 22.5 | 4.5 | 5.5 |
+| 23 | 5 | 6 |
+| 23.5 | 5.5 | 6.5 |
+| 24 | 6 | 7 |
+| 24.5 | 6.5 | 7.5 |
+| 25 | 7 | 8 |
+| 25.5 | 7.5 | 8.5 |
+| 26 | 8 | 9 |
+| 26.5 | 8.5 | 9.5 |
+| 27 | 9 | 10 |
+| 27.5 | 9.5 | 10.5 |
+| 28 | 10 | 11 |
+| 28.5 | 10.5 | 11.5 |
+| 29 | 11 | 12 |
+| 29.5 | 11.5 | 12.5 |
+| 30 | 12 | 13 |
+| 30.5 | 12.5 | 13.5 |
+| 31 | 13 | 14 |
+| 31.5 | 13.5 | 14.5 |
+| 32 | 14 | 15 |
+| 32.5 | 14.5 | 15.5 |
+| 33 | 15 | 16 |
+
+Examples: a US Women's 9 converts to Mondo 26; a US Men's 9 converts to Mondo 27. This chart gives the size conversion only — boot fit and flex vary by model, so consult SCARPA's fit guidance.

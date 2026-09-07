@@ -265,3 +265,38 @@ A performance hiking boot with GORE-TEX waterproofing designed for technical tra
 | Spec | Details |
 |------|---------|
 | Origin | Vietnam |
+
+## Sizing & Fit — US to EU Size Conversion
+SCARPA lists footwear in **European (EU) sizes**. Use this official SCARPA size chart to convert a US shoe size to the EU size to order. US Women's sizes run one full size larger than US Men's (US Women's = US Men's + 1). This conversion applies to climbing shoes, approach shoes, hiking boots, trail-running shoes, mountaineering boots, and lifestyle footwear. Ski boots use Mondopoint sizing instead (see the ski catalog).
+
+Keywords: what size, shoe size, US women's size, US men's size, EU size, EURO size, convert, conversion, sizing, fit, size chart.
+
+| EU | US Men | US Women |
+|------|--------|----------|
+| 34.5 | 3 | 4 |
+| 35 | 3.5 | 4.5 |
+| 35.5–36 | 4 | 5 |
+| 36.5 | 4.5 | 5.5 |
+| 37 | 5 | 6 |
+| 37.5–38 | 5.5 | 6.5 |
+| 38.5 | 6 | 7 |
+| 39 | 6.5 | 7.5 |
+| 39.5 | 7 | 8 |
+| 40–40.5 | 7.5 | 8.5 |
+| 41 | 8 | 9 |
+| 41.5 | 8.5 | 9.5 |
+| 42 | 9 | 10 |
+| 42.5–43 | 9.5 | 10.5 |
+| 43.5–44 | 10 | 11 |
+| 44.5 | 10.5 | 11.5 |
+| 45 | 11 | 12 |
+| 45.5 | 11.5 | 12.5 |
+| 46 | 12 | 13 |
+| 46.5 | 12.5 | 13.5 |
+| 47 | 13 | 14 |
+| 47.5 | 13.5 | 14.5 |
+| 48 | 14 | 15 |
+| 49 | 14.5 | 15.5 |
+| 50 | 15 | 16 |
+
+Examples: a US Women's 9 converts to EU 41; a US Men's 9 converts to EU 42. This chart gives the size conversion only — fit preference (for example, climbing shoes are often worn snug) varies by model and last, so use this chart for the size and consult SCARPA's fit guidance for tightness.
