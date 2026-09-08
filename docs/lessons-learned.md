@@ -115,3 +115,17 @@ Behaviors that only showed up once the system ran end-to-end — none visible fr
 | "How much does the Boostic weigh?" | Climbing | 245g — no regression |
 
 **Takeaway.** Shipping a new capability in a routed RAG system means updating *three* layers in lockstep — the **source** (so an answer can be grounded), the **router** (so the question reaches it), and the **regression check** (so the reroute doesn't poach neighbors). Miss any one and the feature silently fails.
+
+---
+
+## Lesson: a classifier that works 95% of the time is a *crash*, not a *degradation*
+
+**Symptom.** A live user asked *"what's a good shoe for bouldering?"* and got **"Error in workflow."** Not a wrong answer — a hard crash, deterministic across retries.
+
+**Cause.** The n8n Text Classifier wraps the model in a structured-output parser whose schema **requires all nine keys** (every category plus `fallback`, `additionalProperties: false`). Spec questions happened to make the model emit the full object; **recommendation** questions made it emit shorthand — `{"Climbing": true}` — which fails schema validation and throws. The failure was invisible until a whole *class* of question (recommendations) was exercised, because the earlier eval set leaned on spec lookups.
+
+**The fix that didn't work, and why.** First instinct was "the model is adding markdown fences" — true, but not the cause. Worse, the anti-fence instruction I added carried the example `e.g. {"Climbing": true}` — which *taught* the model the exact shorthand that fails the schema. Reading the raw model output (`{"Climbing": true}`, clean, no fences) against the enforced schema (all nine keys required) is what located the real cause.
+
+**The fix.** Instruct the model to emit **every** category key as a boolean with exactly one `true`, with a full-object example. Verified across recommendation phrasings (bouldering → Climbing/Origin VS; ski touring → Skiing/4-Quattro SL) and the size and spec paths, with no regression.
+
+**Takeaway.** With a strict structured-output parser, "the model picked the right category" isn't enough — the *shape* of the output has to match on every call, or the node throws and takes the workflow down. Test the output **format** across every question *class* (spec, recommendation, conversion, refusal), not just a representative few, because a format bug hides until the untested class shows up in production.
